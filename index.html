@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Chat – Powered by OpenAI</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #0f0f0f;
+            color: white;
+            display: flex;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background: #1a1a1a;
+            height: 100vh;
+            padding: 20px;
+            border-right: 1px solid #333;
+        }
+
+        .sidebar h2 {
+            margin-top: 0;
+        }
+
+        /* Chat Area */
+        .chat-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        /* Messages */
+        .messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .msg {
+            margin-bottom: 12px;
+            padding: 12px;
+            border-radius: 10px;
+            max-width: 70%;
+        }
+
+        .user {
+            background: #2f80ed;
+            margin-left: auto;
+        }
+
+        .ai {
+            background: #333;
+        }
+
+        /* Input Bar */
+        .input-bar {
+            display: flex;
+            padding: 10px;
+            background: #1a1a1a;
+        }
+
+        .input-bar input {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            outline: none;
+            background: #333;
+            color: white;
+        }
+
+        .input-bar button {
+            margin-left: 10px;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            background: #2f80ed;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.85;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <h2>AI Menu</h2>
+        <p>• Chat</p>
+        <p>• Mini Games</p>
+        <p>• Settings</p>
+        <p>• About</p>
+    </div>
+
+    <div class="chat-section">
+        <div class="messages" id="messages"></div>
+
+        <div class="input-bar">
+            <input id="userInput" placeholder="Ask anything..." />
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+<script>
+const API_KEY = "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"; // ⚠ Replace with your OpenAI API key
+
+async function sendMessage() {
+    let input = document.getElementById("userInput");
+    let msgText = input.value.trim();
+    if (msgText === "") return;
+
+    addMessage(msgText, "user");
+    input.value = "";
+
+    // Typing Animation Placeholder
+    let typingId = addMessage("Typing...", "ai");
+
+    const res = await fetch("https://api.openai.com/v1/chat/completions", {
+        method: "POST",
+        headers: {
+            "Authorization": "Bearer " + API_KEY,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            model: "gpt-4o-mini",
+            messages: [{ role: "user", content: msgText }]
+        })
+    });
+
+    const data = await res.json();
+
+    // Remove typing...
+    document.getElementById(typingId).remove();
+
+    addMessage(data.choices[0].message.content, "ai");
+}
+
+function addMessage(text, type) {
+    let msgBox = document.createElement("div");
+    let id = "msg_" + Date.now();
+
+    msgBox.id = id;
+    msgBox.className = "msg " + type;
+    msgBox.innerText = text;
+
+    document.getElementById("messages").appendChild(msgBox);
+    msgBox.scrollIntoView();
+
+    return id;
+}
+</script>
+
+</body>
+</html>
