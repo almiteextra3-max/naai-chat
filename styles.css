@@ -1,0 +1,104 @@
+/* GLOBAL RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+/* LIGHT/DARK THEME */
+body {
+  background: #f0f0f0;
+  color: #111;
+}
+
+/* ChatGPT Sidebar */
+.sidebar {
+  width: 260px;
+  background: #202123;
+  color: white;
+  height: 100vh;
+  padding: 20px;
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+
+.sidebar h2 {
+  margin-bottom: 20px;
+  font-size: 22px;
+}
+
+.side-item {
+  padding: 12px;
+  background: #3a3b3c;
+  border-radius: 8px;
+  margin: 8px 0;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.side-item:hover {
+  background: #4b4c4d;
+}
+
+/* Main Content */
+.main {
+  margin-left: 260px;
+  padding: 20px;
+}
+
+/* Chat UI */
+.messages {
+  height: calc(100vh - 120px);
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+.msg {
+  padding: 14px 18px;
+  border-radius: 14px;
+  max-width: 70%;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.user {
+  background: #2f80ed;
+  color: white;
+  margin-left: auto;
+}
+
+.ai {
+  background: #e8e8e8;
+  color: #111;
+}
+
+/* Input Bar */
+.chat-input {
+  position: fixed;
+  bottom: 0;
+  left: 260px;
+  width: calc(100% - 260px);
+  padding: 12px;
+  background: #fff;
+  border-top: 1px solid #ddd;
+  display: flex;
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid #bbb;
+}
+
+.chat-input button {
+  padding: 14px 20px;
+  margin-left: 10px;
+  border: none;
+  background: #2f80ed;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+}
