@@ -1,200 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<title>NexoCloud AI</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<style>
-/* Page Styling */
-body {
-    margin: 0;
-    font-family: "Poppins", sans-serif;
-    background: linear-gradient(135deg,#0d0e13,#151821);
-    color: #fff;
-    display: flex;
-    height: 100vh;
-}
-
-/* Sidebar */
-.sidebar {
-    width: 260px;
-    background: rgba(255,255,255,0.05);
-    backdrop-filter: blur(12px);
-    border-right: 1px solid rgba(255,255,255,0.08);
-    padding: 20px;
-}
-
-.sidebar h1 {
-    margin: 0;
-    font-size: 22px;
-    margin-bottom: 20px;
-}
-
-.side-btn {
-    width: 100%;
-    padding: 12px;
-    margin: 8px 0;
-    border: none;
-    border-radius: 12px;
-    background: rgba(255,255,255,0.07);
-    color: #fff;
-    font-size: 16px;
-    cursor: pointer;
-    transition: .3s;
-}
-
-.side-btn:hover {
-    background: rgba(255,255,255,0.15);
-    transform: translateX(4px);
-}
-
-/* Chat Section */
-.chat {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-}
-
-.chat-header {
-    padding: 15px 20px;
-    font-size: 22px;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    background: rgba(255,255,255,0.04);
-    backdrop-filter: blur(10px);
-}
-
-.messages {
-    flex: 1;
-    overflow-y: auto;
-    padding: 20px;
-}
-
-.message {
-    margin: 10px 0;
-    padding: 14px 16px;
-    max-width: 70%;
-    border-radius: 14px;
-    animation: fadeIn .3s ease-in-out;
-}
-
-@keyframes fadeIn {
-    0% { opacity: 0; transform: translateY(4px); }
-    100% { opacity: 1; transform: translateY(0); }
-}
-
-.user {
-    background: #2d7dff;
-    margin-left: auto;
-}
-
-.ai {
-    background: rgba(255,255,255,0.08);
-    border-left: 3px solid #2d7dff;
-}
-
-/* Input Bar */
-.input-area {
-    display: flex;
-    padding: 12px;
-    background: rgba(255,255,255,0.05);
-    border-top: 1px solid rgba(255,255,255,0.1);
-}
-
-.input-area input {
-    flex: 1;
-    padding: 14px;
-    border-radius: 12px;
-    border: none;
-    background: rgba(255,255,255,0.12);
-    color: #fff;
-    outline: none;
-}
-
-.send-btn {
-    padding: 14px 22px;
-    margin-left: 8px;
-    background: #2d7dff;
-    border: none;
-    border-radius: 12px;
-    color: white;
-    cursor: pointer;
-    font-weight: bold;
-    transition: .2s;
-}
-
-.send-btn:hover {
-    opacity: 0.85;
-    transform: scale(1.05);
-}
-</style>
+  <title>Login – NexoCloud AI</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      background: #202123;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: white;
+    }
+    .login-box {
+      background: #2d2f31;
+      padding: 30px;
+      border-radius: 12px;
+      width: 350px;
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: none;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #2f80ed;
+      border: none;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
 
-<!-- Sidebar -->
-<div class="sidebar">
-    <h1>NexoCloud AI</h1>
-    <button class="side-btn">💬 Chat</button>
-    <button class="side-btn">🎮 Games</button>
-    <button class="side-btn">⚙ Settings</button>
-    <button class="side-btn">📄 About</button>
+<div class="login-box">
+  <h2>Login</h2>
+  <input id="email" placeholder="Email">
+  <input id="pass" type="password" placeholder="Password">
+  <button onclick="login()">Login</button>
+
+  <p style="margin-top:10px;">
+    Don’t have an account?
+    <a href="signup.html" style="color:#2f80ed;">Sign Up</a>
+  </p>
 </div>
 
-<!-- Chat Section -->
-<div class="chat">
-    <div class="chat-header">NexoCloud Assistant</div>
-
-    <div class="messages" id="messages"></div>
-
-    <div class="input-area">
-        <input id="userInput" placeholder="Type something...">
-        <button class="send-btn" onclick="sendMessage()">Send</button>
-    </div>
-</div>
-
-<script>
-/* Add your OpenAI API key */
-const API_KEY = "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";
-
-function addMsg(text, type) {
-    const box = document.createElement("div");
-    box.className = "message " + type;
-    box.innerText = text;
-    document.getElementById("messages").appendChild(box);
-    box.scrollIntoView();
-}
-
-async function sendMessage() {
-    const input = document.getElementById("userInput");
-    const text = input.value.trim();
-    if (!text) return;
-
-    addMsg(text, "user");
-    input.value = "";
-
-    let loading = document.createElement("div");
-    loading.className = "message ai";
-    loading.innerText = "Typing…";
-    document.getElementById("messages").appendChild(loading);
-
-    const res = await fetch("https://api.openai.com/v1/chat/completions", {
-        method: "POST",
-        headers: {
-            "Authorization": "Bearer " + API_KEY,
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            model: "gpt-4o-mini",
-            messages: [{ role: "user", content: text }]
-        })
-    });
-
-    const data = await res.json();
-    loading.remove();
-
-    addMsg(data.choices[0].message.content, "ai");
-}
-</script>
-
+<script src="app.js"></script>
 </body>
 </html>
