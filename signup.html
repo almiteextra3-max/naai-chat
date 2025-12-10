@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Signup – NexoCloud AI</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      background: #202123;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: white;
+    }
+    .box {
+      background: #2d2f31;
+      padding: 30px;
+      width: 350px;
+      border-radius: 12px;
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: none;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #2f80ed;
+      border: none;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<div class="box">
+  <h2>Create Account</h2>
+  <input placeholder="Email">
+  <input type="password" placeholder="Password">
+  <button onclick="signup()">Sign Up</button>
+  <p style="margin-top:10px;">
+    Already have an account?
+    <a href="index.html" style="color:#2f80ed;">Login</a>
+  </p>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
