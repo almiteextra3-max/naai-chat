@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>NexoCloud Chat</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<div class="sidebar">
+  <h2>NexoCloud</h2>
+  <div class="side-item" onclick="window.location.href='dashboard.html'">🏠 Dashboard</div>
+
+  <h3 style="margin-top:25px;">Your Chats</h3>
+  <div class="side-item">Chat 1</div>
+  <div class="side-item">Chat 2</div>
+</div>
+
+<div class="main">
+  <div class="messages" id="messages"></div>
+
+  <div class="chat-input">
+    <input id="txt" placeholder="Message NexoCloud…">
+    <button onclick="sendMsg()">Send</button>
+  </div>
+</div>
+
+<script src="chat.js"></script>
+</body>
+</html>
